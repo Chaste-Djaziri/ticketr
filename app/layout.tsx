@@ -1,11 +1,9 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
-import Header from "@/components/Header";
 import { ClerkProvider } from "@clerk/nextjs";
-import SyncUserWithConvex from "@/components/SyncUserWithConvex";
-import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -20,27 +18,20 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "TicketR | Event management system - Chaste Djaziri",
-  description: "TicketR is an advanced event management system designed to streamline event planning, ticket sales, and attendee management with ease.",
+  description:
+    "TicketR is an advanced event management system designed to streamline event planning, ticket sales, and attendee management with ease.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ConvexClientProvider>
-          <ClerkProvider>
-            <Header />
-            <SyncUserWithConvex />
-            {children}
-
-            <Toaster />
-          </ClerkProvider>
+          <ClerkProvider>{children}</ClerkProvider>
         </ConvexClientProvider>
       </body>
     </html>

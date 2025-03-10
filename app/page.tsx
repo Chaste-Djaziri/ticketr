@@ -1,9 +1,7 @@
-import EventList from "@/components/EventList";
+// app/page.tsx
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div className="">
-      <EventList />
-    </div>
-  );
+  // Immediately redirect to the welcome page
+  redirect("/welcome");
 }
