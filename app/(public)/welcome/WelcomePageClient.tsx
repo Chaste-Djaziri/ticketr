@@ -95,7 +95,7 @@ export default function WelcomePageClient() {
               <div className="absolute inset-0 rounded-2xl border border-gray-200 dark:border-gray-800 backdrop-blur-sm" />
               <div className="relative h-full w-full p-4">
                 <Image
-                  src="/images/event.png"
+                  src="/placeholder.svg?height=500&width=500"
                   alt="Event Management Platform"
                   width={500}
                   height={500}
@@ -242,7 +242,7 @@ export default function WelcomePageClient() {
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
                   &quot;We&apos;re building the future of event management&quot;
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">— Chaste Djaziri, CEO</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">— Jane Doe, CEO</p>
               </div>
             </div>
           </div>

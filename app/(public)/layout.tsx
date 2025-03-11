@@ -1,4 +1,4 @@
-// app/welcome/layout.tsx
+// app/(public)/layout.tsx
 import React from "react";
 import WelcomeHeader from "./components/welcomeHeader";
 
