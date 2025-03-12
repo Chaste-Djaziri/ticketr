@@ -1,13 +1,25 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Image from "next/image"
-import { ArrowRight, CheckCircle, Mail, MapPin, Phone, ChevronDown, Github, Twitter, Linkedin, Instagram } from 'lucide-react'
+import {
+  ArrowRight,
+  CheckCircle,
+  Mail,
+  MapPin,
+  Phone,
+  ChevronDown,
+  Github,
+  Twitter,
+  Linkedin,
+  Instagram,
+} from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useRouter } from "next/navigation"
 
 export default function WelcomePageClient() {
   const [isVisible, setIsVisible] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     setIsVisible(true)
@@ -46,13 +58,13 @@ export default function WelcomePageClient() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <a
-                href="/dashboard"
+              <button
+                onClick={() => router.push("/sign-in")}
                 className="group inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-primary-foreground shadow-md transition-all hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900"
               >
                 Get Started
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              </button>
               <a
                 href="#about"
                 className="inline-flex items-center justify-center rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-6 py-3 text-gray-700 dark:text-gray-200 transition-all hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900"
@@ -67,15 +79,11 @@ export default function WelcomePageClient() {
                   {[1, 2, 3, 4].map((i) => (
                     <div
                       key={i}
-                      className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-900 overflow-hidden"
+                      className="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-gray-900 overflow-hidden bg-primary/20"
                     >
-                      <Image
-                        src={`/placeholder.svg?height=32&width=32`}
-                        alt={`User ${i}`}
-                        width={32}
-                        height={32}
-                        className="h-full w-full object-cover"
-                      />
+                      <div className="h-full w-full flex items-center justify-center text-primary text-xs font-bold">
+                        {i}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -94,14 +102,9 @@ export default function WelcomePageClient() {
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-primary/20 to-primary/0 dark:from-primary/10 dark:to-transparent animate-pulse" />
               <div className="absolute inset-0 rounded-2xl border border-gray-200 dark:border-gray-800 backdrop-blur-sm" />
               <div className="relative h-full w-full p-4">
-                <Image
-                  src="/images/event.png"
-                  alt="Event Management Platform"
-                  width={500}
-                  height={500}
-                  className="h-full w-full rounded-xl object-cover shadow-xl"
-                  priority
-                />
+                <div className="h-full w-full rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center shadow-xl">
+                  <div className="text-primary text-4xl font-bold">Evently</div>
+                </div>
               </div>
 
               {/* Floating feature cards */}
@@ -127,59 +130,6 @@ export default function WelcomePageClient() {
         </div>
       </div>
 
-      {/* Feature highlights */}
-      <section id="features" className="mx-auto max-w-7xl px-6 pb-24">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-            Powerful Features
-          </h2>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Everything you need to create, manage, and grow successful events in one platform.
-          </p>
-        </div>
-
-        <div
-          className={`grid gap-8 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-700 delay-500 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
-        >
-          {[
-            {
-              title: "Seamless Registration",
-              description: "Streamlined registration process with customizable forms and automated confirmations.",
-            },
-            {
-              title: "Attendee Engagement",
-              description: "Interactive tools to keep your attendees engaged before, during, and after your events.",
-            },
-            {
-              title: "Comprehensive Analytics",
-              description: "Detailed insights and reports to measure success and improve future events.",
-            },
-            {
-              title: "Mobile Check-in",
-              description: "Streamline the check-in process with our mobile app and QR code scanning.",
-            },
-            {
-              title: "Payment Processing",
-              description: "Secure payment processing with support for multiple currencies and payment methods.",
-            },
-            {
-              title: "Marketing Tools",
-              description: "Built-in email marketing, social sharing, and promotional tools to boost attendance.",
-            },
-          ].map((feature, index) => (
-            <div
-              key={index}
-              className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 p-6 backdrop-blur-sm transition-all hover:shadow-md hover:border-primary/20 dark:hover:border-primary/20"
-            >
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                <CheckCircle className="h-6 w-6" />
-              </div>
-              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{feature.title}</h3>
-              <p className="text-gray-600 dark:text-gray-400">{feature.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* About Section */}
       <section id="about" className="py-24 bg-gray-50 dark:bg-gray-900">
@@ -229,23 +179,72 @@ export default function WelcomePageClient() {
 
             <div className="order-1 md:order-2 relative">
               <div className="relative rounded-2xl overflow-hidden shadow-xl">
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-primary/0 mix-blend-overlay" />
-                <Image
-                  src="/placeholder.svg?height=600&width=800"
-                  alt="Our Team"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto"
-                />
+                <div className="aspect-video w-full bg-gradient-to-tr from-primary/30 to-primary/5 flex items-center justify-center">
+                  <div className="text-primary text-4xl font-bold">Evently</div>
+                </div>
               </div>
               <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700">
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
                   &quot;We&apos;re building the future of event management&quot;
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">— Chaste Djaziri, CEO</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">— Jane Doe, CEO</p>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+            {/* Feature highlights */}
+            <section id="features" className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+            Powerful Features
+          </h2>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+            Everything you need to create, manage, and grow successful events in one platform.
+          </p>
+        </div>
+
+        <div
+          className={`grid gap-8 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-700 delay-500 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
+        >
+          {[
+            {
+              title: "Seamless Registration",
+              description: "Streamlined registration process with customizable forms and automated confirmations.",
+            },
+            {
+              title: "Attendee Engagement",
+              description: "Interactive tools to keep your attendees engaged before, during, and after your events.",
+            },
+            {
+              title: "Comprehensive Analytics",
+              description: "Detailed insights and reports to measure success and improve future events.",
+            },
+            {
+              title: "Mobile Check-in",
+              description: "Streamline the check-in process with our mobile app and QR code scanning.",
+            },
+            {
+              title: "Payment Processing",
+              description: "Secure payment processing with support for multiple currencies and payment methods.",
+            },
+            {
+              title: "Marketing Tools",
+              description: "Built-in email marketing, social sharing, and promotional tools to boost attendance.",
+            },
+          ].map((feature, index) => (
+            <div
+              key={index}
+              className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 p-6 backdrop-blur-sm transition-all hover:shadow-md hover:border-primary/20 dark:hover:border-primary/20"
+            >
+              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <CheckCircle className="h-6 w-6" />
+              </div>
+              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{feature.title}</h3>
+              <p className="text-gray-600 dark:text-gray-400">{feature.description}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -410,10 +409,10 @@ export default function WelcomePageClient() {
                     <div>
                       <p className="font-medium text-gray-900 dark:text-white">Email</p>
                       <a
-                        href="mailto:hello@evently.com"
+                        href="mailto:hello@Evently.com"
                         className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
                       >
-                        hello@evently.com
+                        hello@Evently.com
                       </a>
                     </div>
                   </div>
@@ -492,9 +491,7 @@ export default function WelcomePageClient() {
         <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             <div>
-              <div className="text-2xl font-bold text-white mb-4">
-                Evently
-              </div>
+              <div className="text-2xl font-bold text-white mb-4">Evently</div>
               <p className="text-gray-400 mb-4 max-w-xs">
                 The complete platform for event organizers to create, manage, and grow successful events.
               </p>
@@ -640,10 +637,8 @@ export default function WelcomePageClient() {
       />
 
       {/* Subtle grid pattern overlay */}
-      <div
-        className="absolute inset-0 -z-10 bg-[url('/grid.svg')] bg-center opacity-5 dark:opacity-10"
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 -z-10 bg-gray-100/5 dark:bg-gray-900/10" aria-hidden="true" />
     </div>
   )
 }
+
